@@ -62,12 +62,16 @@ describe("Vending Machine", () => {
     const result = coolMachine.insertPayment("loonie", "quarter", "quarter");
     expect(result).toEqual("Payment must be an array");
   });
-  // test("Nickel change", () => {
-  //   const result = coolMachine.buyProduct("Lays", 2.55);
-  //   expect(result).toEqual("2 quarters and 1 nickel");
-  // });
+  test("Nickel change", () => {
+    const result = coolMachine.buyProduct("Lays", 2.55);
+    expect(result).toEqual("2 quarters and 1 nickel");
+  });
   test("Dimes and Nickels", () => {
     const result = coolMachine.buyProduct("Lays", 2.65);
     expect(result).toEqual("2 quarters, 1 dime, and 1 nickel");
+  });
+  test("Test", () => {
+    const result = coolMachine.buyProduct("Lays", 2.9);
+    expect(result).toEqual("3 quarters, 1 dime, and 1 nickel");
   });
 });
