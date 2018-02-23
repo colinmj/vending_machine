@@ -74,4 +74,16 @@ describe("Vending Machine", () => {
     const result = coolMachine.buyProduct("Lays", 2.9);
     expect(result).toEqual("3 quarters, 1 dime, and 1 nickel");
   });
+  test("Low change", () => {
+    const result = coolMachine.buyProduct("Lays", 2.1);
+    expect(result).toEqual("1 dime");
+  });
+  test("Low change 2", () => {
+    const result = coolMachine.buyProduct("Lays", 2.05);
+    expect(result).toEqual("1 nickel");
+  });
+  test("Low change 3", () => {
+    const result = coolMachine.buyProduct("Lays", 2.15);
+    expect(result).toEqual("1 dime and 1 nickel");
+  });
 });
