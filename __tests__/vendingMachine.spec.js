@@ -109,4 +109,8 @@ describe("Vending Machine", () => {
     const result = crackMachine.buyProduct(productsTwo.Crack.name, 2.15);
     expect(result).toEqual("NO CRACK FOR YOU");
   });
+  test("No quarters", () => {
+    const result = crackMachine.buyProduct(productsTwo.Mints.name, 3);
+    expect(result).toEqual("5 dimes");
+  });
 });
