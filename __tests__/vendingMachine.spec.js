@@ -7,7 +7,8 @@ const products = {
 const productsTwo = {
   Cookies: { name: "Cookies", price: 2.0, amount: 10 },
   Crack: { name: "Crack", price: 3.5, amount: 0 },
-  Mints: { name: "Mints", price: 2.5, amount: 10 }
+  Mints: { name: "Mints", price: 2.5, amount: 10 },
+  Doritos: { name: "Doritos", price: 2.25, amount: 10 }
 };
 
 const coins = {
@@ -41,10 +42,10 @@ describe("Vending Machine", () => {
   });
   test("Excess Change", () => {
     const result = coolMachine.buyProduct(products.Lays.name, 3);
-    expect(result).toEqual("here are 4 quarters");
+    expect(result).toEqual("4 quarters");
   });
-  test("Change more than a dollar", () => {
-    const result = coolMachine.buyProduct(products.Lays.name, 4);
+  test("Change more than 2 dollars", () => {
+    const result = coolMachine.buyProduct(products.Lays.name, 5);
     expect(result).toEqual(
       "That doesn't make any sense, and I'm going to keep your change as punishment"
     );
@@ -53,9 +54,13 @@ describe("Vending Machine", () => {
     const result = coolMachine.buyProduct(products.Coke.name, 1.5);
     expect(result).toEqual("You're 0.75 short of a tasty snack!");
   });
+  test("More than 4 quarters", () => {
+    const result = coolMachine.buyProduct(products.Coke.name, 3.5);
+    expect(result).toEqual("5 quarters");
+  });
   test("Change breakdown", () => {
     const result = coolMachine.buyProduct(products.Cheesies.name, 1.85);
-    expect(result).toEqual("1 quarter and 1 dime, 95 quarters, 99 dimes");
+    expect(result).toEqual("1 quarter and 1 dime, 90 quarters, 99 dimes");
   });
   test("Stock up", () => {
     const result = coolMachine.stockUp(products.Coke.name);
@@ -112,5 +117,21 @@ describe("Vending Machine", () => {
   test("No quarters", () => {
     const result = crackMachine.buyProduct(productsTwo.Mints.name, 3);
     expect(result).toEqual("5 dimes");
+  });
+  test("No quarters and nickels", () => {
+    const result = crackMachine.buyProduct(productsTwo.Doritos.name, 2.5);
+    expect(result).toEqual("2 dimes 1 nickel");
+  });
+  test("No quarters and nickels 2", () => {
+    const result = crackMachine.buyProduct(productsTwo.Mints.name, 3.5);
+    expect(result).toEqual("10 dimes");
+  });
+  test("No quarters and nickels 3", () => {
+    const result = crackMachine.buyProduct(productsTwo.Mints.name, 2.65);
+    expect(result).toEqual("1 dime and 1 nickel");
+  });
+  test("No quarters and nickels 4", () => {
+    const result = crackMachine.buyProduct(productsTwo.Doritos.name, 2.65);
+    expect(result).toEqual("4 dimes");
   });
 });
