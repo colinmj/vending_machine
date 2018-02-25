@@ -8,7 +8,7 @@ const productsTwo = {
   Cookies: { name: "Cookies", price: 2.0, amount: 10 },
   Crack: { name: "Crack", price: 3.5, amount: 0 },
   Mints: { name: "Mints", price: 2.5, amount: 10 },
-  Doritos: { name: "Doritos", price: 2.25, amount: 10 }
+  Doritos: { name: "Doritos", price: 2.25, amount: 3 }
 };
 
 const coins = {
@@ -133,5 +133,21 @@ describe("Vending Machine", () => {
   test("No quarters and nickels 4", () => {
     const result = crackMachine.buyProduct(productsTwo.Doritos.name, 2.65);
     expect(result).toEqual("4 dimes");
+  });
+  test("No quarters and nickels 4", () => {
+    const result = crackMachine.buyProduct(productsTwo.Doritos.name, 2.65);
+    expect(result).toEqual("4 dimes");
+  });
+  test("No more doritios", () => {
+    const result = crackMachine.buyProduct(productsTwo.Doritos.name, 2.65);
+    expect(result).toEqual("NO DORITOS FOR YOU");
+  });
+  test("Coin stock up", () => {
+    const result = crackMachine.changeStockUp(coinsTwo.quarter.name);
+    expect(result).toEqual(100);
+  });
+  test("Back to quarters", () => {
+    const result = crackMachine.buyProduct(productsTwo.Cookies.name, 2.5);
+    expect(result).toEqual("2 quarters");
   });
 });
