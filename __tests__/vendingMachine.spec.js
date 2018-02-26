@@ -20,7 +20,7 @@ const coins = {
 };
 
 const coinsTwo = {
-  loonie: { name: "loonie", value: 1, count: 4 },
+  loonie: { name: "loonie", value: 1, count: 50 },
   toonie: { name: "toonie", value: 2, count: 10 },
   nickel: { name: "nickel", value: 0.05, count: 50 },
   dime: { name: "dime", value: 0.1, count: 10 },
@@ -42,7 +42,7 @@ describe("Vending Machine", () => {
   });
   test("Excess Change", () => {
     const result = coolMachine.buyProduct(products.Lays.name, 3);
-    expect(result).toEqual("4 quarters");
+    expect(result).toEqual("1 loonie");
   });
   test("Change more than 2 dollars", () => {
     const result = coolMachine.buyProduct(products.Lays.name, 5);
@@ -56,11 +56,11 @@ describe("Vending Machine", () => {
   });
   test("More than 4 quarters", () => {
     const result = coolMachine.buyProduct(products.Coke.name, 3.5);
-    expect(result).toEqual("5 quarters");
+    expect(result).toEqual("1 loonie 1 quarter");
   });
   test("Change breakdown", () => {
     const result = coolMachine.buyProduct(products.Cheesies.name, 1.85);
-    expect(result).toEqual("1 quarter and 1 dime, 90 quarters, 99 dimes");
+    expect(result).toEqual("1 quarter and 1 dime, 99 quarters, 99 dimes");
   });
   test("Stock up", () => {
     const result = coolMachine.stockUp(products.Coke.name);
@@ -71,16 +71,24 @@ describe("Vending Machine", () => {
     expect(result).toEqual("No need to stock up yet!");
   });
   test("Need more coins", () => {
-    const result = coolMachine.insertPayment([coins.loonie.value]);
+    const result = coolMachine.insertPayment(
+      [coins.loonie.value],
+      products.Cheesies.price
+    );
     expect(result).toEqual("Insert more change");
   });
-  test("Adequate coins for at least one product", () => {
-    const result = coolMachine.insertPayment([
-      coins.loonie.value,
-      coins.quarter.value,
-      coins.quarter.value
-    ]);
-    expect(result).toEqual("You may buy a product");
+  test("Enough change", () => {
+    const result = coolMachine.insertPayment(
+      [
+        coins.loonie.value,
+        coins.quarter.value,
+        coins.quarter.value,
+        coins.quarter.value,
+        coins.quarter.value
+      ],
+      products.Lays.price
+    );
+    expect(result).toEqual("Good to go");
   });
   test("Coins must be an array", () => {
     const result = coolMachine.insertPayment("loonie", "quarter", "quarter");
@@ -124,7 +132,7 @@ describe("Vending Machine", () => {
   });
   test("No quarters and nickels 2", () => {
     const result = crackMachine.buyProduct(productsTwo.Mints.name, 3.5);
-    expect(result).toEqual("10 dimes");
+    expect(result).toEqual("1 loonie");
   });
   test("No quarters and nickels 3", () => {
     const result = crackMachine.buyProduct(productsTwo.Mints.name, 2.65);
