@@ -2,10 +2,15 @@ const products = require("../__mocks__/products");
 const productsTwo = require("../__mocks__/products2");
 const coins = require("../__mocks__/coins");
 const coinsTwo = require("../__mocks__/coins2");
+const productsThree = require("../__mocks__/products3");
+const coinsThree = require("../__mocks__/coins3");
+const coinsFour = require("../__mocks__/coins4");
 
 const VendingMachine = require("../lib/vendingMachine.js");
 const coolMachine = new VendingMachine(products, coins);
 const crackMachine = new VendingMachine(productsTwo, coinsTwo);
+const safeSexMachine = new VendingMachine(productsThree, coinsThree);
+const safeSexMachine2 = new VendingMachine(productsThree, coinsFour);
 
 describe("Vending Machine", () => {
   test("Get Products", () => {
@@ -16,7 +21,7 @@ describe("Vending Machine", () => {
     const result = coolMachine.buyProduct(products.Cheesies.name, 1.5);
     expect(result).toEqual("Enjoy your Cheesies, there are 9 left");
   });
-  test("Excess Change", () => {
+  test("1 Loonie", () => {
     const result = coolMachine.buyProduct(products.Lays.name, 3);
     expect(result).toEqual("1 loonie");
   });
@@ -30,11 +35,11 @@ describe("Vending Machine", () => {
     const result = coolMachine.buyProduct(products.Coke.name, 1.5);
     expect(result).toEqual("You're 0.75 short of a tasty snack!");
   });
-  test("More than 4 quarters", () => {
+  test("More than a dollar with loonies", () => {
     const result = coolMachine.buyProduct(products.Coke.name, 3.5);
     expect(result).toEqual("1 loonie 1 quarter");
   });
-  test("Change breakdown", () => {
+  test("Change decreasing", () => {
     const result = coolMachine.buyProduct(products.Cheesies.name, 1.85);
     expect(result).toEqual("1 quarter and 1 dime, 99 quarters, 99 dimes");
   });
@@ -78,7 +83,7 @@ describe("Vending Machine", () => {
     const result = coolMachine.buyProduct(products.Lays.name, 2.65);
     expect(result).toEqual("2 quarters, 1 dime, and 1 nickel");
   });
-  test("Test", () => {
+  test("More dimes and nickels", () => {
     const result = coolMachine.buyProduct(products.Lays.name, 2.9);
     expect(result).toEqual("3 quarters, 1 dime, and 1 nickel");
   });
@@ -119,8 +124,8 @@ describe("Vending Machine", () => {
     expect(result).toEqual("4 dimes");
   });
   test("No quarters and nickels 4", () => {
-    const result = crackMachine.buyProduct(productsTwo.Doritos.name, 2.65);
-    expect(result).toEqual("4 dimes");
+    const result = crackMachine.buyProduct(productsTwo.Doritos.name, 3);
+    expect(result).toEqual("7 dimes 1 nickel");
   });
   test("No more doritios", () => {
     const result = crackMachine.buyProduct(productsTwo.Doritos.name, 2.65);
@@ -133,5 +138,17 @@ describe("Vending Machine", () => {
   test("Back to quarters", () => {
     const result = crackMachine.buyProduct(productsTwo.Cookies.name, 2.5);
     expect(result).toEqual("2 quarters");
+  });
+  test("No loonies", () => {
+    const result = safeSexMachine.buyProduct(productsThree.Trojans.name, 4);
+    expect(result).toEqual("5 quarters");
+  });
+  test("No loonies/No Quarters", () => {
+    const result = safeSexMachine2.buyProduct(productsThree.Trojans.name, 4);
+    expect(result).toEqual("12 dimes 1 nickel");
+  });
+  test("No loonies/No Quarters", () => {
+    const result = safeSexMachine2.buyProduct(productsThree.Trojans.name, 2.8);
+    expect(result).toEqual("1 nickel");
   });
 });
