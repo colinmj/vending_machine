@@ -1,31 +1,7 @@
-const products = {
-  Lays: { name: "Lays", price: 2.0, amount: 10 },
-  Coke: { name: "Coke", price: 2.25, amount: 3 },
-  Cheesies: { name: "Cheesies", price: 1.5, amount: 10 }
-};
-
-const productsTwo = {
-  Cookies: { name: "Cookies", price: 2.0, amount: 10 },
-  Crack: { name: "Crack", price: 3.5, amount: 0 },
-  Mints: { name: "Mints", price: 2.5, amount: 10 },
-  Doritos: { name: "Doritos", price: 2.25, amount: 3 }
-};
-
-const coins = {
-  loonie: { name: "loonie", value: 1, count: 50 },
-  toonie: { name: "toonie", value: 2, count: 50 },
-  nickel: { name: "nickel", value: 0.05, count: 100 },
-  dime: { name: "dime", value: 0.1, count: 100 },
-  quarter: { name: "quarter", value: 0.25, count: 100 }
-};
-
-const coinsTwo = {
-  loonie: { name: "loonie", value: 1, count: 50 },
-  toonie: { name: "toonie", value: 2, count: 10 },
-  nickel: { name: "nickel", value: 0.05, count: 50 },
-  dime: { name: "dime", value: 0.1, count: 10 },
-  quarter: { name: "quarter", value: 0.25, count: 0 }
-};
+const products = require("../__mocks__/products");
+const productsTwo = require("../__mocks__/products2");
+const coins = require("../__mocks__/coins");
+const coinsTwo = require("../__mocks__/coins2");
 
 const VendingMachine = require("../lib/vendingMachine.js");
 const coolMachine = new VendingMachine(products, coins);
